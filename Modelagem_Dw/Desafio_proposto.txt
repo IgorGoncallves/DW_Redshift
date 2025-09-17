@@ -1,0 +1,30 @@
+Desafio foi proposto pela Data Science Academy.
+
+Uma empresa de comércio eletrônico opera em diversas regiões do Brasil, vendendo uma variedade  de  produtos  de  tecnologia,  como  computadores, smartphones  e  periféricos.  
+A empresa  atende  tanto  clientes  corporativos  quanto  consumidores  individuais.  A  empresa  está interessada em monitorar e analisar suas vendas para entender o 
+comportamento dos clientes, a performance dos produtos e as tendências regionais ao longo do tempo.
+
+Objetivo:  A  empresa  deseja  construir  um  sistema  de  análise  de  dados  que  permita  a coleta e análise detalhada das vendas. Isso inclui a capacidade de segmentar 
+os dados por cliente, localização,  produto  e  período  de  tempo.  O  sistema  deve  ajudar  na  tomada  dedecisões estratégicas, como o lançamento de novas promoções, 
+ajustes de estoque e expansão para novas regiões.
+
+Detalhes das Operações da Empresa:
+
+A  empresa  realiza  vendas  de  produtos  tecnológicos  para  seus  clientes,  que podem  ser tanto  consumidores  individuais  quanto  empresas.  Cada  venda  está  
+associada  a  um  cliente específico  e  ocorre  em  uma  localização  geográfica  específica.  O  sistema  precisa  registrar  o produto vendido, a quantidade, o preço 
+de venda e o custo do produto.
+
+A  base  de  clientes  da  empresa  é  composta  por  indivíduos  e  empresas.  Cada  cliente  é identificado  de  forma  única  e  categorizado  por  tipo  
+(Corporativo, Consumidor  ou  Desativado). Informações sobre o nome e tipo de cliente são essenciais para segmentação e análise.
+
+
+As vendas ocorrem em várias cidades ao redor do Brasil. A empresa precisa saber em qual cidade,  estado  e  região  ocorreram  cada  transação  para  entender  as  
+preferências regionais  e ajustar suas operações de acordo com as demandas locais.
+
+A  empresa  vende  uma  variedade  de  produtos  tecnológicos,  que  são  categorizados  em diferentes categorias e subcategorias, como notebooks, desktops e smartphones. 
+É importante rastrear a performance de cada produto para otimizar o portfólio e as estratégias de marketing.
+
+As vendas variam ao longo do tempo, com picos em determinados períodos como fim de ano ou lançamentos de novos produtos. O sistema precisa capturar a data exata de cada venda, 
+permitindo a análise temporal e a identificação de tendências sazonais.
+
+Crie  os  modelos:  Conceitual,  Dimensional,  Lógico  e  Físico.

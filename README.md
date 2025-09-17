@@ -15,5 +15,6 @@ aws configure
 
 ### Execute a Infraestutura
 
-terraform apply
+terraform apply<br>
 yes
+
