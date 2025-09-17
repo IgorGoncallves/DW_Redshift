@@ -8,7 +8,7 @@ resource "aws_vpc" "redshift_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "DSA Redshift VPC"
+    Name = "DW Redshift VPC"
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_subnet" "redshift_subnet" {
   vpc_id     = aws_vpc.redshift_vpc.id
 
   tags = {
-    Name = "DSA Redshift Subnet"
+    Name = "DW Redshift Subnet"
   }
 }
 
@@ -27,7 +27,7 @@ resource "aws_internet_gateway" "redshift_igw" {
   vpc_id = aws_vpc.redshift_vpc.id
 
   tags = {
-    Name = "DSA Redshift Internet Gateway"
+    Name = "DW Redshift Internet Gateway"
   }
 }
 
@@ -41,7 +41,7 @@ resource "aws_route_table" "redshift_route_table" {
   }
 
   tags = {
-    Name = "DSA Redshift Route Table"
+    Name = "DW Redshift Route Table"
   }
 }
 
@@ -65,7 +65,7 @@ resource "aws_security_group" "redshift_sg" {
   }
 
   tags = {
-    Name = "DSA Redshift Security Group"
+    Name = "DW Redshift Security Group"
   }
 }
 
@@ -75,17 +75,17 @@ resource "aws_redshift_subnet_group" "redshift_subnet_group" {
   subnet_ids = [aws_subnet.redshift_subnet.id]
 
   tags = {
-    Name = "DSA Redshift Subnet Group"
+    Name = "DW Redshift Subnet Group"
   }
 }
 
 # Configura Um Cluster Redshift 
 resource "aws_redshift_cluster" "redshift_cluster" {
   cluster_identifier = "redshift-cluster"
-  database_name      = "dsadb"
+  database_name      = "dwdb"
   master_username    = "adminuser"
-  master_password    = "dsaSecurePassw0rd!"
-  node_type          = "dc2.large"
+  master_password    = "dwPass123!"
+  node_type          = "ra3.large"
   number_of_nodes    = 1
 
   vpc_security_group_ids = [aws_security_group.redshift_sg.id]
