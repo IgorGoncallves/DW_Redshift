@@ -1,36 +1,36 @@
 ----------------------------
-Venda;
+Sale;
 
-id_venda
-valor
-data
+id_sale
+value
+date
 qtd
 ----------------------------
 ++++++++++++++++++++++++++++
 ----------------------------
-Produto; 
+Product; 
 
-id_produto
-nome
-categoria
-subcategoria
-valor
+id_product
+name
+category
+subcategory
+value
 ----------------------------
 ++++++++++++++++++++++++++++
 ----------------------------
 Cliente; 
 
-id_cliente
-tipo
-nome
+id_client
+type
+name
 ----------------------------
 ++++++++++++++++++++++++++++
 ----------------------------
-Localização; 
+Location; 
 
-id_localizacao
-cidade
-estado
-pais
+id_location
+city
+state
+country
 ----------------------------
 
