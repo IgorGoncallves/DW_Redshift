@@ -1,0 +1,41 @@
+Dim_Client:
+
+- SK_Client(PK) Primary KEY
+- ID_Client(NK) Natural KEY 
+- Name
+- Type
+
+Dim_Product:
+
+- SK_Product(PK) Primary KEY
+- ID_Product(NK) Natural KEY 
+- Name
+- Category
+- Subcategory
+
+Dim_Loc:
+
+- SK_Loc(PK) Primary KEY
+- ID_Loc(NK) Natural KEY
+- City
+- State
+- Region
+- Country
+
+Dim_Date:
+
+- SK_Date(PK) Primary KEY
+- Date (Complete)
+- Year
+- Month
+- Day
+
+Fact_sale:
+- SK_Client (FK for Dim_Client)
+- SK_Product (FK for Dim_Product)
+- SK_Loc (FK for Dim_Loc)
+- SK_Date (FK for Dim_Date)
+- Qtd
+- Price_sale
+- Coust_Product
+- Revenue_Sale
