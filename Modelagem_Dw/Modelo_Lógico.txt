@@ -1,0 +1,46 @@
+Dim_Client:
+
+SK_Client: INT (Primary Key, Surrogate Key)
+ID_Client: VARCHAR (50) (Natural Key, original customer code)
+Name: VARCHAR (50) (costumer name)
+Type: VARCHAR (20) (Type of client)
+
+-----------------------------------
+Dim_Product:
+
+SK_Product: INT (Primary Key, Surrogate Key)
+ID_Client: VARCHAR (50) (Natural Key, original product code)
+Name: VARCHAR (255) (product name)
+Category: VARCHAR (100) (product category)
+Subcategory: VARCHAR (100) (product subcategory)
+
+------------------------------------
+Dim_Loc:
+
+SK_Loc: INT (Primary Key, Surrogate Key)
+ID_Loc: VARCHAR (50) (Natural Key, original location code)
+City: VARCHAR (100) (local city)
+State: VARCHAR (100) (local state)
+Region: VARCHAR (100) (local region)
+Country: VARCHAR (100) (local country)
+
+--------------------------------------
+Dim_Date
+
+SK_Date: INT (Primary Key, Surrogate Key)
+Date: DATE (full date in YYYY-MM-DD)
+Year: INT (year of date)
+Month: INT (month of date)
+Day: INT (day of date)
+
+--------------------------------------
+Fact_sale:
+
+SK_Client: INT (Foreign Key for Dim_Client)
+SK_Product: INT (Foreign Key for Dim_Product)
+SK_Loc: INT (Foreign Key for Dim_Loc)
+SK_Date: INT (Foreign Key for Dim_Date)
+Qtd: DECIMAL(10, 2) (quantity sold)
+Price_sale: DECIMAL(10, 2) (price at which the product was sold)
+Coust_Product: DECIMAL(10, 2) (cost associated with the product sold)
+Revenue_Sale: DECIMAL(10, 2) (revenue from sale)
