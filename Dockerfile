@@ -1,9 +1,9 @@
 FROM ubuntu:latest
 
 RUN apt-get update && \
-    apt-get install -y wget unzip curl git openssh-client iputils-ping
+    apt-get install -y wget unzip curl git openssh-client iputils-ping postgresql postgresql-contrib
 
-ENV TERRAFORM_VERSION=1.9.2
+ENV TERRAFORM_VERSION=1.9.5
 
 RUN wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \

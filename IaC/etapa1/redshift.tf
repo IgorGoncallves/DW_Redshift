@@ -1,37 +1,28 @@
-# Configura o Provedor AWS
-provider "aws" {
-  region = "us-east-2"
-}
-
-# Configura a Redshift VPC
 resource "aws_vpc" "redshift_vpc" {
   cidr_block = "10.0.0.0/16"
 
   tags = {
-    Name = "DW Redshift VPC"
+    Name = "Redshift VPC"
   }
 }
 
-# Configura a Redshift Subnet
 resource "aws_subnet" "redshift_subnet" {
   cidr_block = "10.0.1.0/24"
   vpc_id     = aws_vpc.redshift_vpc.id
 
   tags = {
-    Name = "DW Redshift Subnet"
+    Name = "Redshift Subnet"
   }
 }
 
-# Configura um Gateway da Internet e Anexa a VPC
 resource "aws_internet_gateway" "redshift_igw" {
   vpc_id = aws_vpc.redshift_vpc.id
 
   tags = {
-    Name = "DW Redshift Internet Gateway"
+    Name = "Redshift Internet Gateway"
   }
 }
 
-# Configura Uma Tabela de Roteamento
 resource "aws_route_table" "redshift_route_table" {
   vpc_id = aws_vpc.redshift_vpc.id
 
@@ -41,17 +32,15 @@ resource "aws_route_table" "redshift_route_table" {
   }
 
   tags = {
-    Name = "DW Redshift Route Table"
+    Name = "Redshift Route Table"
   }
 }
 
-# Associa a Tabela de Roteamento à Subnet
 resource "aws_route_table_association" "redshift_route_table_association" {
   subnet_id      = aws_subnet.redshift_subnet.id
   route_table_id = aws_route_table.redshift_route_table.id
 }
 
-# Configura Um Grupo de Segurança de Acesso ao Data Warehouse com Redshift
 resource "aws_security_group" "redshift_sg" {
   name        = "redshift_sg"
   description = "Allow Redshift traffic"
@@ -65,21 +54,19 @@ resource "aws_security_group" "redshift_sg" {
   }
 
   tags = {
-    Name = "DW Redshift Security Group"
+    Name = "Redshift Security Group"
   }
 }
 
-# Configura Um Grupo de Subnets Redshift Para Configuração Multi-AZ
 resource "aws_redshift_subnet_group" "redshift_subnet_group" {
   name       = "redshift-subnet-group"
   subnet_ids = [aws_subnet.redshift_subnet.id]
 
   tags = {
-    Name = "DW Redshift Subnet Group"
+    Name = "Redshift Subnet Group"
   }
 }
 
-# Configura Um Cluster Redshift 
 resource "aws_redshift_cluster" "redshift_cluster" {
   cluster_identifier = "redshift-cluster"
   database_name      = "dwdb"

@@ -1,5 +1,3 @@
-Projeto Feito com o Auxílio da Data Science Academy (https://www.datascienceacademy.com.br/)
-
 ### Criando a imagem Docker.
 
 docker build -t dw-redshift-terraform:dw .
