@@ -1,83 +1,84 @@
-CREATE SCHEMA IF NOT EXISTS dsaschema;
+CREATE SCHEMA IF NOT EXISTS dwschema;
 
-CREATE TABLE IF NOT EXISTS dsaschema.dim_cliente 
+CREATE TABLE IF NOT EXISTS dwschema.dim_client
 (
-    sk_cliente integer NOT NULL,
-    id_cliente integer NOT NULL,
-    nome character varying(50) NOT NULL,
-    tipo character varying(50),
-    CONSTRAINT dim_cliente_pkey PRIMARY KEY (sk_cliente)
+    sk_client integer NOT NULL,
+    id_client integer NOT NULL,
+    name character varying(50) NOT NULL,
+    type character varying(50),
+    CONSTRAINT dim_client_pkey PRIMARY KEY (sk_client)
 );
 
-CREATE TABLE IF NOT EXISTS dsaschema.dim_localidade
+CREATE TABLE IF NOT EXISTS dwschema.dim_loc
 (
+    sk_loc integer NOT NULL,
+    id_loc integer NOT NULL,
+    country character varying(50) NOT NULL,
+    region character varying(50) NOT NULL,
+    state character varying(50) NOT NULL,
+    city character varying(50) NOT NULL,
+    CONSTRAINT dim_loc_pkey PRIMARY KEY (sk_loc)
+);
+
+CREATE TABLE IF NOT EXISTS dwschema.dim_product
+(
+    sk_product integer NOT NULL,
+    id_product integer NOT NULL,
+    name_product character varying(50) NOT NULL,
+    category character varying(50) NOT NULL,
+    subcategory character varying(50) NOT NULL,
+    CONSTRAINT dim_product_pkey PRIMARY KEY (sk_product)
+);
+
+CREATE TABLE IF NOT EXISTS dwschema.dim_date
+(
+    sk_date integer NOT NULL,
+    full_date date,
+    year integer NOT NULL,
+    month integer NOT NULL,
+    day integer NOT NULL,
+    CONSTRAINT dim_date_pkey PRIMARY KEY (sk_date)
+);
+
+CREATE TABLE IF NOT EXISTS dwschema.fact_sale
+(
+    sk_product integer NOT NULL,
+    sk_client integer NOT NULL,
     sk_localidade integer NOT NULL,
-    id_localidade integer NOT NULL,
-    pais character varying(50) NOT NULL,
-    regiao character varying(50) NOT NULL,
-    estado character varying(50) NOT NULL,
-    cidade character varying(50) NOT NULL,
-    CONSTRAINT dim_localidade_pkey PRIMARY KEY (sk_localidade)
+    sk_date integer NOT NULL,
+    qtd integer NOT NULL,
+    price_sale numeric(10,2) NOT NULL,
+    coust_product numeric(10,2) NOT NULL,
+    revenue_sale numeric(10,2) NOT NULL,
+    CONSTRAINT fact_sale_pkey PRIMARY KEY (sk_product, sk_client, sk_loc, sk_date),
+    CONSTRAINT fact_sale_sk_client_fkey FOREIGN KEY (sk_client) REFERENCES dwschema.dim_client (sk_client),
+    CONSTRAINT fact_sale_sk_loc_fkey FOREIGN KEY (sk_loc) REFERENCES dwschema.dim_loc (sk_loc),
+    CONSTRAINT fact_sale_sk_product_fkey FOREIGN KEY (sk_product) REFERENCES dwschema.dim_product (sk_product),
+    CONSTRAINT fact_sale_sk_date_fkey FOREIGN KEY (sk_date) REFERENCES dwschema.dim_date (sk_date)
 );
 
-CREATE TABLE IF NOT EXISTS dsaschema.dim_produto
-(
-    sk_produto integer NOT NULL,
-    id_produto integer NOT NULL,
-    nome_produto character varying(50) NOT NULL,
-    categoria character varying(50) NOT NULL,
-    subcategoria character varying(50) NOT NULL,
-    CONSTRAINT dim_produto_pkey PRIMARY KEY (sk_produto)
-);
 
-CREATE TABLE IF NOT EXISTS dsaschema.dim_tempo
-(
-    sk_tempo integer NOT NULL,
-    data_completa date,
-    ano integer NOT NULL,
-    mes integer NOT NULL,
-    dia integer NOT NULL,
-    CONSTRAINT dim_tempo_pkey PRIMARY KEY (sk_tempo)
-);
-
-CREATE TABLE IF NOT EXISTS dsaschema.fato_vendas
-(
-    sk_produto integer NOT NULL,
-    sk_cliente integer NOT NULL,
-    sk_localidade integer NOT NULL,
-    sk_tempo integer NOT NULL,
-    quantidade integer NOT NULL,
-    preco_venda numeric(10,2) NOT NULL,
-    custo_produto numeric(10,2) NOT NULL,
-    receita_vendas numeric(10,2) NOT NULL,
-    CONSTRAINT fato_vendas_pkey PRIMARY KEY (sk_produto, sk_cliente, sk_localidade, sk_tempo),
-    CONSTRAINT fato_vendas_sk_cliente_fkey FOREIGN KEY (sk_cliente) REFERENCES dsaschema.dim_cliente (sk_cliente),
-    CONSTRAINT fato_vendas_sk_localidade_fkey FOREIGN KEY (sk_localidade) REFERENCES dsaschema.dim_localidade (sk_localidade),
-    CONSTRAINT fato_vendas_sk_produto_fkey FOREIGN KEY (sk_produto) REFERENCES dsaschema.dim_produto (sk_produto),
-    CONSTRAINT fato_vendas_sk_tempo_fkey FOREIGN KEY (sk_tempo) REFERENCES dsaschema.dim_tempo (sk_tempo)
-);
-
-COPY dsaschema.dim_cliente
-FROM 's3://dsa-fonte-p2-<ID-AWS>/dados/dim_cliente.csv'
-IAM_ROLE 'arn:aws:iam::<ID-AWS>:role/RedshiftS3AccessRole'
+COPY dwschema.dim_client
+FROM 's3://dw-dados-redshift/dados/dim_cliente.csv'
+IAM_ROLE 'arn:aws:iam::980921734847:role/RedshiftS3AccessRole'
 CSV;
 
-COPY dsaschema.dim_localidade
-FROM 's3://dsa-fonte-p2-<ID-AWS>/dados/dim_localidade.csv'
-IAM_ROLE 'arn:aws:iam::<ID-AWS>:role/RedshiftS3AccessRole'
+COPY dwschema.dim_loc
+FROM 's3://dw-dados-redshift/dados/dim_localidade.csv'
+IAM_ROLE 'arn:aws:iam::980921734847:role/RedshiftS3AccessRole'
 CSV;
 
-COPY dsaschema.dim_produto
-FROM 's3://dsa-fonte-p2-<ID-AWS>/dados/dim_produto.csv'
-IAM_ROLE 'arn:aws:iam::<ID-AWS>:role/RedshiftS3AccessRole'
+COPY dwschema.dim_product
+FROM 's3://dw-dados-redshift/dados/dim_produto.csv'
+IAM_ROLE 'arn:aws:iam::980921734847:role/RedshiftS3AccessRole'
 CSV;
 
-COPY dsaschema.dim_tempo
-FROM 's3://dsa-fonte-p2-<ID-AWS>/dados/dim_tempo.csv'
-IAM_ROLE 'arn:aws:iam::<ID-AWS>:role/RedshiftS3AccessRole'
+COPY dwschema.dim_date
+FROM 's3://dw-dados-redshift/dados/dim_tempo.csv'
+IAM_ROLE 'arn:aws:iam::980921734847:role/RedshiftS3AccessRole'
 CSV;
 
-COPY dsaschema.fato_vendas
-FROM 's3://dsa-fonte-p2-<ID-AWS>/dados/fato_vendas.csv'
-IAM_ROLE 'arn:aws:iam::<ID-AWS>:role/RedshiftS3AccessRole'
+COPY dwschema.fact_sale
+FROM 's3://dw-dados-redshift/dados/fato_vendas.csv'
+IAM_ROLE 'arn:aws:iam::980921734847:role/RedshiftS3AccessRole'
 CSV;
