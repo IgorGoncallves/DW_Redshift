@@ -1,18 +1,25 @@
-### Criando a imagem Docker.
+# DW em AWS Redshift — IaC + Modelagem + Deploy
 
-docker build -t dw-redshift-terraform:dw .
+Cria (via IaC/Terraform) a infraestrutura na AWS, modela o problema de dados (modelos conceitual, lógico, físico e dimensional), provisiona Amazon Redshift, e sobe os artefatos para a nuvem. Inclui scripts SQL, exemplos de carga e um fluxo de trabalho reprodutível em Docker.
 
+### Principais recursos
 
-### Criando o container.
+Infra como Código (Terraform): VPC, Subnets, Security Groups e Redshift.
 
-docker run -dit --name dw-redshift -v C:\Users\empig\OneDrive\Documentos\Dw_Redshift\IaC:/iac dw-redshift-terraform:dw /bin/bash
+### Modelagem completa do DW:
 
-### Conecte a Aws
+Conceitual: entidades e relacionamentos do domínio.
 
-aws configure
+Lógico: normalização, chaves, integridade.
 
-### Execute a Infraestutura
+Dimensional: Star Schema com Fatos e Dimensões.
 
-terraform apply<br>
-yes
+Físico: DDL otimizada para Redshift (sort/dist keys, encodings).
 
+Scripts SQL para criar esquemas, tabelas, views e cargas iniciais.
+
+Docker para padronizar ambiente de execução (psql, utilitários).
+
+Carga de dados: COPY a partir de S3.
+
+Guia de troubleshooting (rede/porta 5439, SG/NACL, túnel SSM/SSH).
